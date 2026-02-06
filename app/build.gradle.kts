@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.robomonobo.yournotes"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.robomonobo.yournotes"
