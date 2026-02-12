@@ -1,0 +1,4 @@
+think about this
+implementation of the bottom menu.
+look at other implementations of notes apps to see their implementation,
+if they modify xml files to achieve the adding and ridding of menu items.

@@ -22,4 +22,9 @@
         android:name="com.robomonobo.yournotes.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/scrollingBottomMenuFragment"
+        android:name="com.robomonobo.yournotes.ScrollingBottomMenuFragment"
+        android:label="fragment_scrolling_bottom_menu"
+        tools:layout="@layout/fragment_scrolling_bottom_menu" />
 </navigation>
