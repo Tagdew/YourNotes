@@ -9,6 +9,11 @@ data class NoteData(var date: DateFormat = DateFormat(),
                     var noteSettings: NoteSettingData = NoteSettingData()
 )
 {
+    companion object NoteList
+    {
+
+    }
+
     data class NoteSettingData(val cornerSmoothnessWeight: Int = 50)
 
     fun getNoteDisplayText(): String {
