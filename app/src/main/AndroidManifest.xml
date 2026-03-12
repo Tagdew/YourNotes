@@ -15,9 +15,10 @@
         <activity
             android:name=".AddNoteActionButton"
             android:exported="false"
-            android:theme="@style/Theme.YourNotes" />
+            android:theme="@style/Theme.YourNotes"/>
         <activity
             android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>

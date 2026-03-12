@@ -1,22 +1,19 @@
 package com.robomonobo.yournotes
 
 import android.os.Bundle
-import android.widget.LinearLayout
-import android.widget.TableLayout
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.tabs.TabItem
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayout.Tab
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import com.google.android.material.textfield.TextInputEditText
 import com.robomonobo.yournotes.databinding.ActivityMainBinding
+import com.robomonobo.yournotes.listeners.TabSelectListener
 import com.robomonobo.yournotes.ui.Notes.NoteData
-import java.io.File
+import com.robomonobo.yournotes.ui.Notes.NoteDataCompanion
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,21 +30,27 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //Note Stuff test, deals with Function in NoteData
-        var noteDataList = ArrayList<NoteData>()
-        noteDataList.add(NoteData(headerText = "ThisHeaderText"))
-        noteDataList.add(NoteData(bodyText = "ThisBodyText"))
-        noteDataList.add(NoteData(customHeaderText = "ThisIsACustomHeaderText"))
 
         val bottomBarTabLayout: TabLayout = findViewById<TabLayout>(R.id.Bottom_Bar_Tab_Layout)
+        NoteDataCompanion.noteBodyText = findViewById<TextInputEditText>(R.id.NoteBodyTextInput)
+        NoteDataCompanion.noteHeaderText = findViewById<TextInputEditText>(R.id.NoteHeaderTextInput)
 
-        for (thisNoteData in noteDataList)
+        NoteDataCompanion.noteDataList = ArrayList<NoteData>()
+        NoteDataCompanion.noteDataList.add(NoteData(headerText = "ThisHeaderText"))
+        NoteDataCompanion.noteDataList.add(NoteData(bodyText = "ThisBodyText"))
+        NoteDataCompanion.noteDataList.add(NoteData(customHeaderText = "ThisIsACustomHeaderText"))
+
+        for (thisNoteData in NoteDataCompanion.noteDataList)
         {
-            bottomBarTabLayout.addTab(bottomBarTabLayout.newTab().setText(thisNoteData.getNoteDisplayText()))
+            var thisTab = bottomBarTabLayout.addTab(bottomBarTabLayout.newTab().setText(thisNoteData.getNoteDisplayText()))
         }
+        bottomBarTabLayout.addOnTabSelectedListener(TabSelectListener())
+
+        ////
 
         val noteAppTopToolbar: Toolbar = binding.NoteAppTopToolbar
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        val navController = findNavController(R.id.navigation_host_fragment_note_app_activity)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 

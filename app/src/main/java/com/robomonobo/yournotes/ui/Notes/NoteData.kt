@@ -1,7 +1,6 @@
 package com.robomonobo.yournotes.ui.Notes
 
 import android.text.format.DateFormat
-
 data class NoteData(var date: DateFormat = DateFormat(),
                     var headerText: String = "",
                     var bodyText: String = "",
@@ -9,10 +8,6 @@ data class NoteData(var date: DateFormat = DateFormat(),
                     var noteSettings: NoteSettingData = NoteSettingData()
 )
 {
-    companion object NoteList
-    {
-
-    }
 
     data class NoteSettingData(val cornerSmoothnessWeight: Int = 50)
 
