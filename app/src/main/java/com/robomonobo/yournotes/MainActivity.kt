@@ -11,9 +11,10 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.textfield.TextInputEditText
 import com.robomonobo.yournotes.databinding.ActivityMainBinding
+import com.robomonobo.yournotes.listeners.BodyInputListener
+import com.robomonobo.yournotes.listeners.HeaderInputListener
 import com.robomonobo.yournotes.listeners.TabSelectListener
 import com.robomonobo.yournotes.ui.Notes.NoteData
-import com.robomonobo.yournotes.ui.Notes.NoteDataCompanion
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,18 +33,29 @@ class MainActivity : AppCompatActivity() {
         //Note Stuff test, deals with Function in NoteData
 
         val bottomBarTabLayout: TabLayout = findViewById<TabLayout>(R.id.Bottom_Bar_Tab_Layout)
-        NoteDataCompanion.noteBodyText = findViewById<TextInputEditText>(R.id.NoteBodyTextInput)
-        NoteDataCompanion.noteHeaderText = findViewById<TextInputEditText>(R.id.NoteHeaderTextInput)
 
-        NoteDataCompanion.noteDataList = ArrayList<NoteData>()
-        NoteDataCompanion.noteDataList.add(NoteData(headerText = "ThisHeaderText"))
-        NoteDataCompanion.noteDataList.add(NoteData(bodyText = "ThisBodyText"))
-        NoteDataCompanion.noteDataList.add(NoteData(customHeaderText = "ThisIsACustomHeaderText"))
+        NoteData.noteHeaderText = findViewById<TextInputEditText>(R.id.NoteHeaderTextInput)
+        NoteData.noteBodyText = findViewById<TextInputEditText>(R.id.NoteBodyTextInput)
 
-        for (thisNoteData in NoteDataCompanion.noteDataList)
+        NoteData.noteDataList = ArrayList<NoteData>()
+        NoteData.tabList = ArrayList<TabLayout.Tab>()
+
+        NoteData.noteDataList.add(NoteData(headerText = "ThisHeaderText"))
+        NoteData.noteDataList.add(NoteData(bodyText = "ThisBodyText"))
+        NoteData.noteDataList.add(NoteData(customHeaderText = "ThisIsACustomHeaderText"))
+
+        for (thisNoteData in NoteData.noteDataList)
         {
-            var thisTab = bottomBarTabLayout.addTab(bottomBarTabLayout.newTab().setText(thisNoteData.getNoteDisplayText()))
+            NoteData.tabList.add(bottomBarTabLayout.newTab().setText(thisNoteData.getNoteDisplayText()))
         }
+
+        for (thisTab in NoteData.tabList)
+        {
+            bottomBarTabLayout.addTab(thisTab)
+        }
+
+        NoteData.noteHeaderText.addTextChangedListener(HeaderInputListener())
+        NoteData.noteBodyText.addTextChangedListener(BodyInputListener())
         bottomBarTabLayout.addOnTabSelectedListener(TabSelectListener())
 
         ////
